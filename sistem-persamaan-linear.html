@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Persamaan Linear</title>
+    <style></style>
+  </head>
+  <body>
+    
+    <div class="container">
+      <h1>Sistem Persamaan Linear</h1>
+      <div class="method-select">
+        <label>Pilih Metode:</label>
+        <select id="method">
+          <option value="cramer">Metode Cramer</option>
+          <option value="gauss">Metode Gauss</option>
+        </select>
+      </div>
+      <p>Masukkan koefisien untuk persamaan linear:</p>
+      <div class="equation-container">
+        <div class="input-group">
+          <input type="number" id="a1" step="any" placeholder="a1" />
+          <span class="variable">X₁</span> +
+          <input type="number" id="b1" step="any" placeholder="b1" />
+          <span class="variable">X₂</span> =
+          <input type="number" id="c1" step="any" placeholder="c1" />
+        </div>
+        <div class="input-group">
+          <input type="number" id="a2" step="any" placeholder="a2" />
+          <span class="variable">X₁</span> +
+          <input type="number" id="b2" step="any" placeholder="b2" />
+          <span class="variable">X₂</span> =
+          <input type="number" id="c2" step="any" placeholder="c2" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

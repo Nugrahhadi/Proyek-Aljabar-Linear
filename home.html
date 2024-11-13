@@ -1,110 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulataor Aljabar Linear dan Matriks</title>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Tools - Sea Theme</title>
     <style>
-      body {
-        font-family: Sans-Serif;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            color: #042979;
+            transition: background-color 0.5s ease;
+        }
+        
+        .home-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3fa7b4 0%, #09506e 100%);
+            color: white;
+            text-align: center;
+            padding: 5vw;
+        }
 
-      .container {
-        text-align: center;
-        padding: 2rem;
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 22px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        width: 90%;
-      }
+        .home-header {
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
 
-      h1 {
-        color: #2c3e50;
-        font-size: 2.5rem;
-        margin-bottom: 1.5rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
+        .home-title {
+            font-size: 4vw;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
 
-      .paragraph {
-        color: #34495e;
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-      }
+        .home-subtitle {
+            font-size: 1.5vw;
+            opacity: 0.9;
+            margin-bottom: 5vh;
+        }
 
-      .button-container {
-        display: flex;
-        gap: 25px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
+        .choice-container {
+            display: flex;
+            gap: 4vw;
+            margin-top: 5vh;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-      .button {
-        padding: 1rem 2rem;
-        font-size: 1.2rem;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        min-width: 200px;
-      }
+        .choice-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 5vw;
+            border-radius: 15px;
+            width: 25vw;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-      .button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
+        .choice-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-      .spl {
-        background: #3498db;
-        color: white;
-        justify-content: center;
-      }
+        .choice-icon {
+            font-size: 6vw; /* Ikon lebih responsif */
+            margin-bottom: 20px;
+        }
 
-      .spl:hover {
-        background: #2980b9;
-      }
+        .choice-title {
+            font-size: 2vw;
+            margin-bottom: 15px;
+        }
 
-      .matriks {
-        background: #2ecc71;
-        color: white;
-        justify-content: center;
-      }
+        .choice-description {
+            font-size: 1.2vw;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
 
-      .matriks:hover {
-        background: #27ae60;
-      }
+        .choice-btn {
+            padding: 1.2vw 3vw;
+            font-size: 1.5vw;
+            background: white;
+            color: #004d40;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+            text-decoration: none;
+        }
 
-      .icon {
-        font-size: 1.5rem;
-      }
+        .choice-btn:hover {
+            transform: scale(1.05);
+            background: #f0f0f0;
+        }
+
+        .choice-btn:active {
+            background: #b2dfdb;
+        }
+
+        @media (max-width: 768px) {
+            .home-title {
+                font-size: 6vw;
+            }
+
+            .choice-card {
+                width: 90%;
+                margin-bottom: 20px;
+                padding: 8vw;
+            }
+
+            .choice-icon {
+                font-size: 10vw;
+            }
+
+            .choice-title {
+                font-size: 4vw;
+            }
+
+            .choice-description {
+                font-size: 3vw;
+            }
+
+            .choice-btn {
+                font-size: 4vw;
+                padding: 3vw 6vw;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .home-title {
+                font-size: 5vw;
+            }
+
+            .choice-card {
+                width: 70%;
+            }
+
+            .choice-btn {
+                font-size: 2vw;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Kalkulator Aljabar Linear dan Matriks</h1>
-      <p class="paragraph">Mau menghitung apa?</p>
+</head>
+<body>
+    <div id="homePage" class="home-container">
+        <div class="home-header">
+            <h2 class="home-title">Matriks & SPL Solver</h2>
+            <p class="home-subtitle">Pilih Perhitunganmu Denganku!</p>
+        </div>
 
-      <div class="button-container">
-        <a href="matrix-calculator-web.html" class="button matriks">
-          <span class="icon">🔢</span>
-          Matriks
-        </a>
-        <a href="sistem-persamaan-linear.html" class="button spl">
-          <span class="icon">📊</span>
-          Sistem Persamaan Linear
-        </a>
-      </div>
+        <div class="choice-container">
+            <div class="choice-card">
+                <div class="choice-icon">📊</div>
+                <h3 class="choice-title">Kalkulator Matriks</h3>
+                <p class="choice-description">Hitung operasi matriks dengan cepat, mudah dan terpercaya!</p>
+                <a href="matrix-calculator-web.html" class="choice-btn">Mulai</a>
+            </div>
+            
+            <div class="choice-card">
+                <div class="choice-icon">📐</div>
+                <h3 class="choice-title">Sistem Persamaan Linear</h3>
+                <p class="choice-description">Selesaikan sistem persamaan persamaan linear dengan akurat!</p>
+                <a href="metode-spl.html" class="choice-btn">Mulai</a>
+            </div>
+        </div>
     </div>
-  </body>
+</body>
 </html>

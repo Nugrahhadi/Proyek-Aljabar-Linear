@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pilih Metode Penyelesaian SPL</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #8e44ad, #3498db);
+        color: #fff;
+      }
+
+      .method-container {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 2rem;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 500px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .method-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .method-buttons button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+      }
+
+      .method-buttons button:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="method-container">
+      <h1>Pilih Metode SPL</h1>
+      <div class="method-buttons">
+        <button onclick="location.href='spl-metode-biasa.html'">
+          Metode Biasa
+        </button>
+        <button onclick="location.href='sistem-persamaan-linear.html'">
+          Metode Gauss & Cramer
+        </button>
+        <button onclick="location.href='metode_obe.html'">Metode OBE</button>
+      </div>
+    </div>
+  </body>
+</html>

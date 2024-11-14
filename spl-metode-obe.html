@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator Sistem Persamaan Linear - Metode OBE</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        text-align: center;
+        color: #0a0a0a;
+        margin-bottom: 15px;
+      }
+
+      .input-section {
+        margin-bottom: 2rem;
+      }
+
+      .matrix-input {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .matrix-row {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      input {
+        width: 60px;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #2980b9;
+      }
+
+      .steps {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+      }
+
+      .step {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: white;
+        border-left: 4px solid #3498db;
+      }
+
+      .result {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: #e8f6f3;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .animate {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      .back-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 900px;
+        max-width: 100%;
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .back-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .back-button:hover {
+        background-color: #c0392b;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Kalkulator Sistem Persamaan Linear</h1>
+      <div class="input-section">
+        <h2>Masukkan Matriks Augmented</h2>
+        <div class="matrix-input" id="matrixInput">
+          <div class="matrix-row">
+            <input type="number" step="any" placeholder="a11" />
+            <input type="number" step="any" placeholder="a12" />
+            <input type="number" step="any" placeholder="a13" />
+            <span>|</span>
+            <input type="number" step="any" placeholder="b1" />
+          </div>
+          <div class="matrix-row">
+            <input type="number" step="any" placeholder="a21" />
+            <input type="number" step="any" placeholder="a22" />
+            <input type="number" step="any" placeholder="a23" />
+            <span>|</span>
+            <input type="number" step="any" placeholder="b2" />
+          </div>
+          <div class="matrix-row">
+            <input type="number" step="any" placeholder="a31" />
+            <input type="number" step="any" placeholder="a32" />
+            <input type="number" step="any" placeholder="a33" />
+            <span>|</span>
+            <input type="number" step="any" placeholder="b3" />
+          </div>
+        </div>
+        <button onclick="solveSystem()">Hitung Dengan Metode OBE</button>
+      </div>
+      <div id="steps" class="steps"></div>
+      <div id="result" class="result"></div>
+      <div class="back-button-container">
+        <button
+          class="back-button"
+          onclick="window.location.href='metode-spl.html'"
+        >
+          Kembali ke Menu SPL
+        </button>
+      </div>
+    </div>
+    
+
+    <script>
+      function getMatrixFromInputs() {
+        const matrix = [];
+        const rows = document.querySelectorAll(".matrix-row");
+
+        rows.forEach((row) => {
+          const rowValues = Array.from(row.querySelectorAll("input")).map(
+            (input) => parseFloat(input.value) || 0
+          );
+          matrix.push(rowValues);
+        });
+
+        return matrix;
+      }
+
+      function formatMatrix(matrix) {
+        return matrix
+          .map((row) => row.map((val) => val.toFixed(2)).join(" "))
+          .join("<br>");
+      }
+
+      function swapRows(matrix, row1, row2) {
+        [matrix[row1], matrix[row2]] = [matrix[row2], matrix[row1]];
+      }
+
+      function multiplyRow(matrix, row, scalar) {
+        matrix[row] = matrix[row].map((val) => val * scalar);
+      }
+
+      function addMultipleOfRow(matrix, sourceRow, targetRow, scalar) {
+        for (let i = 0; i < matrix[0].length; i++) {
+          matrix[targetRow][i] += scalar * matrix[sourceRow][i];
+        }
+      }
+
+      function solveSystem() {
+        const matrix = getMatrixFromInputs();
+        const steps = document.getElementById("steps");
+        const result = document.getElementById("result");
+        steps.innerHTML = "";
+        result.innerHTML = "";
+
+        let step = 1;
+        function addStep(description, matrix) {
+          const stepDiv = document.createElement("div");
+          stepDiv.className = "step animate";
+          stepDiv.innerHTML = `
+                    <h3>Langkah ${step}</h3>
+                    <p>${description}</p>
+                    <pre>${formatMatrix(matrix)}</pre>
+                `;
+          steps.appendChild(stepDiv);
+          step++;
+        }
+
+        // Forward elimination
+        for (let i = 0; i < 3; i++) {
+          // Find pivot
+          let maxRow = i;
+          for (let j = i + 1; j < 3; j++) {
+            if (Math.abs(matrix[j][i]) > Math.abs(matrix[maxRow][i])) {
+              maxRow = j;
+            }
+          }
+
+          if (maxRow !== i) {
+            swapRows(matrix, i, maxRow);
+            addStep(
+              `Menukar baris ${i + 1} dengan baris ${maxRow + 1}`,
+              matrix
+            );
+          }
+
+          // Make pivot = 1
+          const pivot = matrix[i][i];
+          if (pivot !== 0) {
+            multiplyRow(matrix, i, 1 / pivot);
+            addStep(
+              `Membagi baris ${i + 1} dengan ${pivot.toFixed(2)}`,
+              matrix
+            );
+          }
+
+          // Eliminate below
+          for (let j = i + 1; j < 3; j++) {
+            const factor = -matrix[j][i];
+            if (factor !== 0) {
+              addMultipleOfRow(matrix, i, j, factor);
+              addStep(
+                `Menambahkan ${factor.toFixed(2)} kali baris ${
+                  i + 1
+                } ke baris ${j + 1}`,
+                matrix
+              );
+            }
+          }
+        }
+
+        // Back substitution
+        for (let i = 2; i >= 0; i--) {
+          for (let j = i - 1; j >= 0; j--) {
+            const factor = -matrix[j][i];
+            if (factor !== 0) {
+              addMultipleOfRow(matrix, i, j, factor);
+              addStep(
+                `Menambahkan ${factor.toFixed(2)} kali baris ${
+                  i + 1
+                } ke baris ${j + 1}`,
+                matrix
+              );
+            }
+          }
+        }
+
+        // Display result
+        const x = matrix[0][3];
+        const y = matrix[1][3];
+        const z = matrix[2][3];
+
+        result.innerHTML = `
+                <h3>Solusi:</h3>
+                <p>x = ${x.toFixed(2)}</p>
+                <p>y = ${y.toFixed(2)}</p>
+                <p>z = ${z.toFixed(2)}</p>
+            `;
+      }
+    </script>
+  </body>
+</html>

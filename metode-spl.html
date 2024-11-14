@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,13 +16,20 @@
         color: #fff;
       }
 
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        max-width: 500px;
+      }
+
       .method-container {
         text-align: center;
         background: rgba(255, 255, 255, 0.2);
         padding: 2rem;
         border-radius: 8px;
-        width: 80%;
-        max-width: 500px;
+        width: 100%;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
@@ -37,6 +44,11 @@
         gap: 1rem;
       }
 
+      .method-buttons-back {
+        margin-top: 20px;
+        width: 100%;
+      }
+
       .method-buttons button {
         font-size: 1rem;
         padding: 0.8rem 1.5rem;
@@ -49,22 +61,45 @@
         width: 100%;
       }
 
+      .method-buttons-back button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        background-color: #e22f2f;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+      }
+
       .method-buttons button:hover {
         background-color: #2980b9;
+      }
+
+      .method-buttons-back button:hover {
+        background-color: #c22020;
       }
     </style>
   </head>
   <body>
-    <div class="method-container">
-      <h1>Pilih Metode SPL</h1>
-      <div class="method-buttons">
-        <button onclick="location.href='spl-metode-biasa.html'">
-          Metode Biasa
+    <div class="wrapper">
+      <div class="method-container">
+        <h1>Pilih Metode SPL</h1>
+        <div class="method-buttons">
+          <button onclick="location.href='spl-metode-biasa.html'">
+            Metode Biasa
+          </button>
+          <button onclick="location.href='sistem-persamaan-linear.html'">
+            Metode Gauss & Cramer
+          </button>
+          <button onclick="location.href='metode_obe.html'">Metode OBE</button>
+        </div>
+      </div>
+      <div class="method-buttons-back">
+        <button onclick="location.href='home.html'">
+          Kembali Ke Menu Utama
         </button>
-        <button onclick="location.href='sistem-persamaan-linear.html'">
-          Metode Gauss & Cramer
-        </button>
-        <button onclick="location.href='metode_obe.html'">Metode OBE</button>
       </div>
     </div>
   </body>

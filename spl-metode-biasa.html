@@ -47,6 +47,7 @@
         border-radius: 5px;
         cursor: pointer;
         transition: all 0.3s;
+        margin-bottom: 10px;
       }
 
       .selector-btn.active {
@@ -142,6 +143,31 @@
       #equations3var {
         display: none;
       }
+
+      .back-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 900px;
+        max-width: 100%;
+        margin: 20px auto; /* Ubah margin-top menjadi margin dan tambahkan auto */
+        text-align: center;
+      }
+
+      .back-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .back-button:hover {
+        background-color: #c0392b;
+      }
     </style>
   </head>
   <body>
@@ -231,6 +257,14 @@
         <div id="solution"></div>
         <div class="steps" id="steps"></div>
       </div>
+    </div>
+    <div class="back-button-container">
+      <button
+        class="back-button"
+        onclick="window.location.href='metode-spl.html'"
+      >
+        Kembali ke Menu SPL
+      </button>
     </div>
 
     <script>

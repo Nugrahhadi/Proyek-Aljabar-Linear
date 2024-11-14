@@ -1,224 +1,267 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalkulator Sistem Persamaan Linear</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #cb5897;
-        }
-        .container {
-            background-color: #bc528c;
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(51, 21, 21, 0.1);
-        }
-        h1, h2, h3 {
-            color: rgb(69, 37, 37);
-            text-align: center;
-        }
-        .method-select {
-            margin: 20px 0;
-            text-align: center;
-        }
-        select {
-            padding: 8px;
-            border-radius: 4px;
-            border: 1px solid #e5d8d8;
-            font-size: 16px;
-        }
-        .input-section {
-            margin-bottom: 20px;
-        }
-        .matrix-input {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .matrix-row {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-            align-items: center;
-        }
-        input[type="number"] {
-            width: 60px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: px;
-            background-color: #c5bde5;
-        }
-        button {
-            background-color: #b2a8dc;
-            color: rgb(69, 37, 37);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 10px 0;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #b1adc2
-        }
-        .result, .steps {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-        .step {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #fff;
-            border-left: 3px solid #4CAF50;
-        }
-        #cramerSection, #gaussSection {
-            display: none;
-        }
-        .active {
-            display: block !important;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #cb5897;
+      }
+      .container {
+        background-color: #bc528c;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 0 10px rgba(51, 21, 21, 0.1);
+      }
+      h1,
+      h2,
+      h3 {
+        color: rgb(69, 37, 37);
+        text-align: center;
+      }
+      .method-select {
+        margin: 20px 0;
+        text-align: center;
+      }
+      select {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #e5d8d8;
+        font-size: 16px;
+      }
+      .input-section {
+        margin-bottom: 20px;
+      }
+      .matrix-input {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .matrix-row {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        align-items: center;
+      }
+      input[type="number"] {
+        width: 60px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: px;
+        background-color: #c5bde5;
+      }
+      button {
+        background-color: #b2a8dc;
+        color: rgb(69, 37, 37);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px 0;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #b1adc2;
+      }
+      .result,
+      .steps {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+      }
+      .step {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #fff;
+        border-left: 3px solid #4caf50;
+      }
+      #cramerSection,
+      #gaussSection {
+        display: none;
+      }
+      .active {
+        display: block !important;
+      }
+
+      .back-button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 900px;
+        max-width: 100%;
+        margin: 20px auto; /* Ubah margin-top menjadi margin dan tambahkan auto */
+        text-align: center;
+      }
+
+      .back-button {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+
+      .back-button:hover {
+        background-color: #c0392b;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>Kalkulator Sistem Persamaan Linear</h1>
-        
-        <div class="method-select">
-            <label>Pilih Metode: </label>
-            <select id="methodSelect" onchange="changeMethod()">
-                <option value="cramer">Metode Cramer</option>
-                <option value="gauss">Metode Gauss</option>
-            </select>
-        </div>
+      <h1>Kalkulator Sistem Persamaan Linear</h1>
 
-        <!-- Bagian Cramer -->
-        <div id="cramerSection">
-            <div class="input-section">
-                <h3>Masukkan koefisien persamaan (3x3):</h3>
-                <div class="matrix-input">
-                    <div class="matrix-row">
-                        <input type="number" id="c11" placeholder="a1">x +
-                        <input type="number" id="c12" placeholder="b1">y +
-                        <input type="number" id="c13" placeholder="c1">z =
-                        <input type="number" id="r1" placeholder="d1">
-                    </div>
-                    <div class="matrix-row">
-                        <input type="number" id="c21" placeholder="a2">x +
-                        <input type="number" id="c22" placeholder="b2">y +
-                        <input type="number" id="c23" placeholder="c2">z =
-                        <input type="number" id="r2" placeholder="d2">
-                    </div>
-                    <div class="matrix-row">
-                        <input type="number" id="c31" placeholder="a3">x +
-                        <input type="number" id="c32" placeholder="b3">y +
-                        <input type="number" id="c33" placeholder="c3">z =
-                        <input type="number" id="r3" placeholder="d3">
-                    </div>
-                </div>
-                <button onclick="hitungCramer()">Hitung dengan Metode Cramer</button>
+      <div class="method-select">
+        <label>Pilih Metode: </label>
+        <select id="methodSelect" onchange="changeMethod()">
+          <option value="cramer">Metode Cramer</option>
+          <option value="gauss">Metode Gauss</option>
+        </select>
+      </div>
+
+      <!-- Bagian Cramer -->
+      <div id="cramerSection">
+        <div class="input-section">
+          <h3>Masukkan koefisien persamaan (3x3):</h3>
+          <div class="matrix-input">
+            <div class="matrix-row">
+              <input type="number" id="c11" placeholder="a1" />x +
+              <input type="number" id="c12" placeholder="b1" />y +
+              <input type="number" id="c13" placeholder="c1" />z =
+              <input type="number" id="r1" placeholder="d1" />
             </div>
-        </div>
-
-        <!-- Bagian Gauss -->
-        <div id="gaussSection">
-            <div class="input-section">
-                <label>Jumlah Persamaan: </label>
-                <input type="number" id="size" value="3" min="2" max="5" onchange="createMatrix()">
-                <button onclick="createMatrix()">Buat Matriks</button>
-                <div id="matrix-container" class="matrix-input"></div>
-                <button onclick="solveGauss()">Hitung dengan Metode Gauss</button>
+            <div class="matrix-row">
+              <input type="number" id="c21" placeholder="a2" />x +
+              <input type="number" id="c22" placeholder="b2" />y +
+              <input type="number" id="c23" placeholder="c2" />z =
+              <input type="number" id="r2" placeholder="d2" />
             </div>
+            <div class="matrix-row">
+              <input type="number" id="c31" placeholder="a3" />x +
+              <input type="number" id="c32" placeholder="b3" />y +
+              <input type="number" id="c33" placeholder="c3" />z =
+              <input type="number" id="r3" placeholder="d3" />
+            </div>
+          </div>
+          <button onclick="hitungCramer()">Hitung dengan Metode Cramer</button>
         </div>
+      </div>
 
-        <div id="steps" class="steps"></div>
-        <div id="result" class="result"></div>
+      <!-- Bagian Gauss -->
+      <div id="gaussSection">
+        <div class="input-section">
+          <label>Jumlah Persamaan: </label>
+          <input
+            type="number"
+            id="size"
+            value="3"
+            min="2"
+            max="5"
+            onchange="createMatrix()"
+          />
+          <button onclick="createMatrix()">Buat Matriks</button>
+          <div id="matrix-container" class="matrix-input"></div>
+          <button onclick="solveGauss()">Hitung dengan Metode Gauss</button>
+        </div>
+      </div>
+
+      <div id="steps" class="steps"></div>
+      <div id="result" class="result"></div>
     </div>
-    <div style="display: flex; justify-content: center;">
-        <button
-          onclick="window.location.href='metode-spl.html'"
-          style="
-            width: 900px;
-            max-width: 100%;
-            margin-top: 20px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-          "
-        >
-          Kembali ke Menu SPL
-        </button>
+    <div class="back-button-container">
+      <button
+        class="back-button"
+        onclick="window.location.href='metode-spl.html'"
+      >
+        Kembali ke Menu SPL
+      </button>
+    </div>
 
     <script>
-        // Fungsi untuk mengganti metode
-        function changeMethod() {
-            const method = document.getElementById('methodSelect').value;
-            document.getElementById('cramerSection').classList.remove('active');
-            document.getElementById('gaussSection').classList.remove('active');
-            document.getElementById(method + 'Section').classList.add('active');
-            document.getElementById('steps').innerHTML = '';
-            document.getElementById('result').innerHTML = '';
+      // Fungsi untuk mengganti metode
+      function changeMethod() {
+        const method = document.getElementById("methodSelect").value;
+        document.getElementById("cramerSection").classList.remove("active");
+        document.getElementById("gaussSection").classList.remove("active");
+        document.getElementById(method + "Section").classList.add("active");
+        document.getElementById("steps").innerHTML = "";
+        document.getElementById("result").innerHTML = "";
+      }
+
+      // Fungsi-fungsi untuk metode Cramer
+      function determinan3x3(matrix) {
+        return (
+          matrix[0][0] *
+            (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
+          matrix[0][1] *
+            (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
+          matrix[0][2] *
+            (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0])
+        );
+      }
+
+      function gantiKolom(matrix, kolom, b) {
+        let newMatrix = matrix.map((row) => [...row]);
+        for (let i = 0; i < 3; i++) {
+          newMatrix[i][kolom] = b[i];
         }
+        return newMatrix;
+      }
 
-        // Fungsi-fungsi untuk metode Cramer
-        function determinan3x3(matrix) {
-            return matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
-                   matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
-                   matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0]);
-        }
+      function hitungCramer() {
+        const A = [
+          [
+            parseFloat(document.getElementById("c11").value),
+            parseFloat(document.getElementById("c12").value),
+            parseFloat(document.getElementById("c13").value),
+          ],
+          [
+            parseFloat(document.getElementById("c21").value),
+            parseFloat(document.getElementById("c22").value),
+            parseFloat(document.getElementById("c23").value),
+          ],
+          [
+            parseFloat(document.getElementById("c31").value),
+            parseFloat(document.getElementById("c32").value),
+            parseFloat(document.getElementById("c33").value),
+          ],
+        ];
+        const b = [
+          parseFloat(document.getElementById("r1").value),
+          parseFloat(document.getElementById("r2").value),
+          parseFloat(document.getElementById("r3").value),
+        ];
 
-        function gantiKolom(matrix, kolom, b) {
-            let newMatrix = matrix.map(row => [...row]);
-            for(let i = 0; i < 3; i++) {
-                newMatrix[i][kolom] = b[i];
-            }
-            return newMatrix;
-        }
+        const D = determinan3x3(A);
 
-        function hitungCramer() {
-            const A = [
-                [parseFloat(document.getElementById('c11').value), parseFloat(document.getElementById('c12').value), parseFloat(document.getElementById('c13').value)],
-                [parseFloat(document.getElementById('c21').value), parseFloat(document.getElementById('c22').value), parseFloat(document.getElementById('c23').value)],
-                [parseFloat(document.getElementById('c31').value), parseFloat(document.getElementById('c32').value), parseFloat(document.getElementById('c33').value)]
-            ];
-            const b = [
-                parseFloat(document.getElementById('r1').value),
-                parseFloat(document.getElementById('r2').value),
-                parseFloat(document.getElementById('r3').value)
-            ];
-
-            const D = determinan3x3(A);
-            
-            if(D === 0) {
-                document.getElementById('result').innerHTML = `
+        if (D === 0) {
+          document.getElementById("result").innerHTML = `
                     <div class="step">
                         <strong>Sistem tidak memiliki solusi unik karena determinan utama = 0</strong>
                     </div>`;
-                return;
-            }
+          return;
+        }
 
-            const Dx = determinan3x3(gantiKolom(A, 0, b));
-            const Dy = determinan3x3(gantiKolom(A, 1, b));
-            const Dz = determinan3x3(gantiKolom(A, 2, b));
+        const Dx = determinan3x3(gantiKolom(A, 0, b));
+        const Dy = determinan3x3(gantiKolom(A, 1, b));
+        const Dz = determinan3x3(gantiKolom(A, 2, b));
 
-            const x = Dx / D;
-            const y = Dy / D;
-            const z = Dz / D;
+        const x = Dx / D;
+        const y = Dy / D;
+        const z = Dz / D;
 
-            document.getElementById('steps').innerHTML = `
+        document.getElementById("steps").innerHTML = `
                 <div class="step">
                     <strong>Langkah 1: Hitung Determinan Utama (D)</strong><br>
                     D = ${D.toFixed(4)}
@@ -236,128 +279,139 @@
                     z = Dz/D = ${z.toFixed(4)}
                 </div>`;
 
-            document.getElementById('result').innerHTML = `
+        document.getElementById("result").innerHTML = `
                 <div class="step">
                     <strong>Solusi:</strong><br>
                     x = ${x.toFixed(4)}<br>
                     y = ${y.toFixed(4)}<br>
                     z = ${z.toFixed(4)}
                 </div>`;
-        }
+      }
 
-        // Fungsi-fungsi untuk metode Gauss
-        function createMatrix() {
-            const size = parseInt(document.getElementById('size').value);
-            const container = document.getElementById('matrix-container');
-            container.innerHTML = '';
+      // Fungsi-fungsi untuk metode Gauss
+      function createMatrix() {
+        const size = parseInt(document.getElementById("size").value);
+        const container = document.getElementById("matrix-container");
+        container.innerHTML = "";
 
-            for (let i = 0; i < size; i++) {
-                const row = document.createElement('div');
-                row.className = 'matrix-row';
-                
-                for (let j = 0; j <= size; j++) {
-                    const input = document.createElement('input');
-                    input.type = 'number';
-                    input.step = 'any';
-                    input.value = '0';
-                    input.id = `m${i}${j}`;
-                    row.appendChild(input);
-                    
-                    if (j < size) {
-                        const variable = document.createElement('span');
-                        variable.textContent = j === size - 1 ? `x${j+1} = ` : `x${j+1} + `;
-                        row.appendChild(variable);
-                    }
-                }
-                container.appendChild(row);
+        for (let i = 0; i < size; i++) {
+          const row = document.createElement("div");
+          row.className = "matrix-row";
+
+          for (let j = 0; j <= size; j++) {
+            const input = document.createElement("input");
+            input.type = "number";
+            input.step = "any";
+            input.value = "0";
+            input.id = `m${i}${j}`;
+            row.appendChild(input);
+
+            if (j < size) {
+              const variable = document.createElement("span");
+              variable.textContent =
+                j === size - 1 ? `x${j + 1} = ` : `x${j + 1} + `;
+              row.appendChild(variable);
             }
+          }
+          container.appendChild(row);
         }
+      }
 
-        function getMatrix() {
-            const size = parseInt(document.getElementById('size').value);
-            const matrix = [];
-            
-            for (let i = 0; i < size; i++) {
-                const row = [];
-                for (let j = 0; j <= size; j++) {
-                    row.push(parseFloat(document.getElementById(`m${i}${j}`).value));
-                }
-                matrix.push(row);
+      function getMatrix() {
+        const size = parseInt(document.getElementById("size").value);
+        const matrix = [];
+
+        for (let i = 0; i < size; i++) {
+          const row = [];
+          for (let j = 0; j <= size; j++) {
+            row.push(parseFloat(document.getElementById(`m${i}${j}`).value));
+          }
+          matrix.push(row);
+        }
+        return matrix;
+      }
+
+      function formatMatrix(matrix) {
+        return matrix
+          .map((row) => row.map((val) => val.toFixed(2)).join("\t"))
+          .join("\n");
+      }
+
+      function gaussElimination(matrix) {
+        const n = matrix.length;
+        const steps = [];
+
+        for (let i = 0; i < n; i++) {
+          let maxEl = Math.abs(matrix[i][i]);
+          let maxRow = i;
+          for (let k = i + 1; k < n; k++) {
+            if (Math.abs(matrix[k][i]) > maxEl) {
+              maxEl = Math.abs(matrix[k][i]);
+              maxRow = k;
             }
-            return matrix;
-        }
+          }
 
-        function formatMatrix(matrix) {
-            return matrix.map(row => 
-                row.map(val => val.toFixed(2)).join('\t')
-            ).join('\n');
-        }
+          if (maxRow !== i) {
+            const temp = matrix[i];
+            matrix[i] = matrix[maxRow];
+            matrix[maxRow] = temp;
+            steps.push(`Menukar baris ${i + 1} dengan baris ${maxRow + 1}`);
+            steps.push(formatMatrix([...matrix]));
+          }
 
-        function gaussElimination(matrix) {
-            const n = matrix.length;
-            const steps = [];
-            
-            for (let i = 0; i < n; i++) {
-                let maxEl = Math.abs(matrix[i][i]);
-                let maxRow = i;
-                for (let k = i + 1; k < n; k++) {
-                    if (Math.abs(matrix[k][i]) > maxEl) {
-                        maxEl = Math.abs(matrix[k][i]);
-                        maxRow = k;
-                    }
-                }
-
-                if (maxRow !== i) {
-                    const temp = matrix[i];
-                    matrix[i] = matrix[maxRow];
-                    matrix[maxRow] = temp;
-                    steps.push(`Menukar baris ${i + 1} dengan baris ${maxRow + 1}`);
-                    steps.push(formatMatrix([...matrix]));
-                }
-
-                for (let k = i + 1; k < n; k++) {
-                    const c = -matrix[k][i] / matrix[i][i];
-                    for (let j = i; j <= n; j++) {
-                        if (i === j) {
-                            matrix[k][j] = 0;
-                        } else {
-                            matrix[k][j] += c * matrix[i][j];
-                        }
-                    }
-                    steps.push(`Eliminasi baris ${k + 1}`);
-                    steps.push(formatMatrix([...matrix]));
-                }
+          for (let k = i + 1; k < n; k++) {
+            const c = -matrix[k][i] / matrix[i][i];
+            for (let j = i; j <= n; j++) {
+              if (i === j) {
+                matrix[k][j] = 0;
+              } else {
+                matrix[k][j] += c * matrix[i][j];
+              }
             }
-
-            const solution = new Array(n).fill(0);
-            for (let i = n - 1; i >= 0; i--) {
-                solution[i] = matrix[i][n] / matrix[i][i];
-                for (let k = i - 1; k >= 0; k--) {
-                    matrix[k][n] -= matrix[k][i] * solution[i];
-                }
-            }
-
-            return { solution, steps };
+            steps.push(`Eliminasi baris ${k + 1}`);
+            steps.push(formatMatrix([...matrix]));
+          }
         }
 
-        function solveGauss() {
-            const matrix = getMatrix();
-            const { solution, steps } = gaussElimination(matrix);
-            
-            document.getElementById('steps').innerHTML = '<h3>Langkah-langkah:</h3>' + 
-                steps.map((step, index) => 
-                    `<div class="step">${index % 2 === 0 ? step : '<pre>' + step + '</pre>'}</div>`
-                ).join('');
-
-            document.getElementById('result').innerHTML = '<h3>Hasil:</h3>' +
-                solution.map((val, idx) => 
-                    `<div class="step">x${idx + 1} = ${val.toFixed(4)}</div>`
-                ).join('');
+        const solution = new Array(n).fill(0);
+        for (let i = n - 1; i >= 0; i--) {
+          solution[i] = matrix[i][n] / matrix[i][i];
+          for (let k = i - 1; k >= 0; k--) {
+            matrix[k][n] -= matrix[k][i] * solution[i];
+          }
         }
 
-        // Inisialisasi
-        changeMethod();
-        createMatrix();
+        return { solution, steps };
+      }
+
+      function solveGauss() {
+        const matrix = getMatrix();
+        const { solution, steps } = gaussElimination(matrix);
+
+        document.getElementById("steps").innerHTML =
+          "<h3>Langkah-langkah:</h3>" +
+          steps
+            .map(
+              (step, index) =>
+                `<div class="step">${
+                  index % 2 === 0 ? step : "<pre>" + step + "</pre>"
+                }</div>`
+            )
+            .join("");
+
+        document.getElementById("result").innerHTML =
+          "<h3>Hasil:</h3>" +
+          solution
+            .map(
+              (val, idx) =>
+                `<div class="step">x${idx + 1} = ${val.toFixed(4)}</div>`
+            )
+            .join("");
+      }
+
+      // Inisialisasi
+      changeMethod();
+      createMatrix();
     </script>
-</body>
+  </body>
 </html>

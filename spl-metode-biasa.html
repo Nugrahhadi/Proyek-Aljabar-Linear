@@ -1,237 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalkulator Sistem Persamaan Linear 3 Variabel</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-
-      body {
-        font-family: "Poppins", sans-serif;
+      * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        background-color: #f5f5f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         min-height: 100vh;
+        padding: 20px;
       }
 
       .container {
-        background-color: white;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 800px;
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 150px;
       }
 
       h1 {
         text-align: center;
         color: #2c3e50;
-        margin-bottom: 1.5rem;
+        margin-bottom: 30px;
       }
 
-      .equation-container {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        align-items: center;
+      .equation-inputs {
+        margin-bottom: 20px;
+      }
+
+      .equation-label {
+        text-align: left;
+        color: #2c3e50;
+        font-weight: bold;
+        margin-bottom: 5px;
       }
 
       .input-group {
-        display: flex;
-        flex: wrap;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr auto auto 1fr;
+        gap: 10px;
         align-items: center;
-        gap: 0.5rem;
       }
 
-      .input-group input {
-        width: 60px;
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s;
       }
 
-      .input-group span {
-        font-size: 1.2rem;
-        font-weight: 500;
+      input:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+
+      .variable {
+        text-align: center;
+        font-weight: bold;
+        color: #2c3e50;
       }
 
       button {
         display: block;
         width: 100%;
-        padding: 0.8rem 1.5rem;
+        padding: 12px;
         background-color: #3498db;
         color: white;
         border: none;
-        border-radius: 4px;
-        font-size: 1rem;
+        border-radius: 5px;
+        font-size: 16px;
         cursor: pointer;
         transition: background-color 0.3s;
+        margin-top: 20px;
       }
 
       button:hover {
         background-color: #2980b9;
       }
 
-      #result {
-        margin-top: 1.5rem;
-        padding: 1rem;
-        background-color: #f9f9f9;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        text-align: center;
+      .result {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        display: none;
       }
 
-      #result h2 {
+      .result h2 {
         color: #2c3e50;
-        margin-bottom: 1rem;
-      }
-
-      #result p {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 15px;
       }
 
       .steps {
-        margin-top: 1rem;
-        padding: 1rem;
-        background-color: #f5f5f5;
-        border-radius: 4px;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border-left: 4px solid #3498db;
       }
 
-      .steps h3 {
-        color: #2c3e50;
-        margin-bottom: 1rem;
+      .error {
+        color: #e74c3c;
         text-align: center;
-      }
-
-      .steps p {
-        margin-bottom: 0.5rem;
-      }
-
-      @media (max-width: 600px) {
-        .container {
-          padding: 1.5rem;
-        }
-
-        .equation-container {
-          grid-template-columns: 1fr;
-        }
-
-        .input-group input {
-          width: 50px;
-        }
+        margin-top: 10px;
+        display: none;
       }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Kalkulator Sistem Persamaan Linear 3 Variabel</h1>
-      <div class="equation-container">
+
+      <div class="equation-inputs">
+        <div class="equation-label">Persamaan 1</div>
         <div class="input-group">
-          <input type="number" id="a1" step="any" placeholder="a1" />
-          <span>X</span>
-          <input type="number" id="b1" step="any" placeholder="b1" />
-          <span>Y</span>
-          <input type="number" id="c1" step="any" placeholder="c1" />
-          <span>Z</span>
+          <input type="number" id="a11" placeholder="x1" />
+          <span>x +</span>
+          <input type="number" id="a12" placeholder="y1" />
+          <span>y +</span>
+          <input type="number" id="a13" placeholder="z1" />
+          <span>z</span>
           <span>=</span>
-          <input type="number" id="d1" step="any" placeholder="d1" />
+          <input type="number" id="b1" placeholder="h1" />
         </div>
+
+        <div class="equation-label">Persamaan 2</div>
         <div class="input-group">
-          <input type="number" id="a2" step="any" placeholder="a2" />
-          <span>X</span>
-          <input type="number" id="b2" step="any" placeholder="b2" />
-          <span>Y</span>
-          <input type="number" id="c2" step="any" placeholder="c2" />
-          <span>Z</span>
+          <input type="number" id="a21" placeholder="x2" />
+          <span>x +</span>
+          <input type="number" id="a22" placeholder="y2" />
+          <span>y +</span>
+          <input type="number" id="a23" placeholder="z2" />
+          <span>z</span>
           <span>=</span>
-          <input type="number" id="d2" step="any" placeholder="d2" />
+          <input type="number" id="b2" placeholder="h2" />
         </div>
+
+        <div class="equation-label">Persamaan 3</div>
         <div class="input-group">
-          <input type="number" id="a3" step="any" placeholder="a3" />
-          <span>X</span>
-          <input type="number" id="b3" step="any" placeholder="b3" />
-          <span>Y</span>
-          <input type="number" id="c3" step="any" placeholder="c3" />
-          <span>Z</span>
+          <input type="number" id="a31" placeholder="x3" />
+          <span>x +</span>
+          <input type="number" id="a32" placeholder="y3" />
+          <span>y +</span>
+          <input type="number" id="a33" placeholder="z3" />
+          <span>z</span>
           <span>=</span>
-          <input type="number" id="d3" step="any" placeholder="d3" />
+          <input type="number" id="b3" placeholder="h3" />
         </div>
       </div>
-      <button onclick="solveEquation()">Selesaikan</button>
-      <div id="result">
-        <h2>Hasil</h2>
-        <p id="x-value"></p>
-        <p id="y-value"></p>
-        <p id="z-value"></p>
-      </div>
-      <div class="steps">
-        <h3>Langkah-langkah Penyelesaian</h3>
-        <p id="steps"></p>
+
+      <button onclick="solve()">Hitung</button>
+
+      <div id="error" class="error"></div>
+
+      <div id="result" class="result">
+        <h2>Hasil:</h2>
+        <div id="solution"></div>
+        <div class="steps" id="steps"></div>
       </div>
     </div>
 
     <script>
-      function solveEquation() {
-        const a1 = parseFloat(document.getElementById("a1").value);
+      function solve() {
+        // Mengambil nilai dari input
+        const a11 = parseFloat(document.getElementById("a11").value);
+        const a12 = parseFloat(document.getElementById("a12").value);
+        const a13 = parseFloat(document.getElementById("a13").value);
         const b1 = parseFloat(document.getElementById("b1").value);
-        const c1 = parseFloat(document.getElementById("c1").value);
-        const d1 = parseFloat(document.getElementById("d1").value);
 
-        const a2 = parseFloat(document.getElementById("a2").value);
+        const a21 = parseFloat(document.getElementById("a21").value);
+        const a22 = parseFloat(document.getElementById("a22").value);
+        const a23 = parseFloat(document.getElementById("a23").value);
         const b2 = parseFloat(document.getElementById("b2").value);
-        const c2 = parseFloat(document.getElementById("c2").value);
-        const d2 = parseFloat(document.getElementById("d2").value);
 
-        const a3 = parseFloat(document.getElementById("a3").value);
+        const a31 = parseFloat(document.getElementById("a31").value);
+        const a32 = parseFloat(document.getElementById("a32").value);
+        const a33 = parseFloat(document.getElementById("a33").value);
         const b3 = parseFloat(document.getElementById("b3").value);
-        const c3 = parseFloat(document.getElementById("c3").value);
-        const d3 = parseFloat(document.getElementById("d3").value);
 
-        if ([a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3].some(isNaN)) {
-          document.getElementById("result").innerHTML =
-            "<h2>Mohon isi semua koefisien</h2>";
-          document.getElementById("steps").innerHTML = "";
+        // Validasi input
+        if (
+          [a11, a12, a13, b1, a21, a22, a23, b2, a31, a32, a33, b3].some(isNaN)
+        ) {
+          document.getElementById("error").style.display = "block";
+          document.getElementById("error").textContent =
+            "Mohon isi semua field dengan angka yang valid";
+          document.getElementById("result").style.display = "none";
           return;
         }
 
-        // Langkah 1: Eliminasi Gauss untuk mendapatkan X
-        const x =
-          (d1 * (b2 * c3 - b3 * c2) -
-            b1 * (d2 * c3 - d3 * c2) +
-            c1 * (d2 * b3 - d3 * b2)) /
-          (a1 * (b2 * c3 - b3 * c2) -
-            b1 * (a2 * c3 - a3 * c2) +
-            c1 * (a2 * b3 - a3 * b2));
+        let steps = [];
 
-        // Langkah 2: Substitusi X untuk mendapatkan Y
-        const y = (d1 - a1 * x) / b1;
+        // Langkah 1: Eliminasi variabel x dari persamaan 1 dan 2
+        const m1 = a21 / a11;
+        const eq12 = {
+          x: 0,
+          y: a22 - m1 * a12,
+          z: a23 - m1 * a13,
+          c: b2 - m1 * b1,
+        };
 
-        // Langkah 3: Substitusi X dan Y untuk mendapatkan Z
-        const z = (d3 - a3 * x - b3 * y) / c3;
+        steps.push(`Langkah 1: Eliminasi x dari persamaan 1 dan 2`);
+        steps.push(`${a21}/${a11} = ${m1}`);
+        steps.push(`Persamaan baru: ${eq12.y}y + ${eq12.z}z = ${eq12.c}`);
 
-        document.getElementById("x-value").textContent = `X = ${x.toFixed(4)}`;
-        document.getElementById("y-value").textContent = `Y = ${y.toFixed(4)}`;
-        document.getElementById("z-value").textContent = `Z = ${z.toFixed(4)}`;
+        // Langkah 2: Eliminasi variabel x dari persamaan 1 dan 3
+        const m2 = a31 / a11;
+        const eq13 = {
+          x: 0,
+          y: a32 - m2 * a12,
+          z: a33 - m2 * a13,
+          c: b3 - m2 * b1,
+        };
 
-        document.getElementById("steps").innerHTML = `
-        <p>Langkah 1: Eliminasi Gauss untuk mendapatkan X</p>
-        <p>X = (${d1} * (${b2} * ${c3} - ${b3} * ${c2}) - ${b1} * (${d2} * ${c3} - ${d3} * ${c2}) + ${c1} * (${d2} * ${b3} - ${d3} * ${b2})) / (${a1} * (${b2} * ${c3} - ${b3} * ${c2}) - ${b1} * (${a2} * ${c3} - ${a3} * ${c2}) + ${c1} * (${a2} * ${b3} - ${a3} * ${b2})) = ${x.toFixed(
-          4
-        )}</p>
-        <p>Langkah 2: Substitusi X untuk mendapatkan Y</p>
-        <p>Y = (${d1} - ${a1} * ${x}) / ${b1} = ${y.toFixed(4)}</p>
-        <p>Langkah 3: Substitusi X dan Y untuk mendapatkan Z</p>
-        <p>Z = (${d3} - ${a3} * ${x} - ${b3} * ${y}) / ${c3} = ${z.toFixed(
-          4
-        )}</p>
-      `;
+        steps.push(`\nLangkah 2: Eliminasi x dari persamaan 1 dan 3`);
+        steps.push(`${a31}/${a11} = ${m2}`);
+        steps.push(`Persamaan baru: ${eq13.y}y + ${eq13.z}z = ${eq13.c}`);
+
+        // Langkah 3: Eliminasi y untuk mendapatkan z
+        const m3 = eq13.y / eq12.y;
+        const z = (eq13.c - m3 * eq12.c) / (eq13.z - m3 * eq12.z);
+
+        steps.push(`\nLangkah 3: Eliminasi y untuk mendapatkan z`);
+        steps.push(`z = ${z}`);
+
+        // Langkah 4: Substitusi z untuk mendapatkan y
+        const y = (eq12.c - eq12.z * z) / eq12.y;
+
+        steps.push(`\nLangkah 4: Substitusi z untuk mendapatkan y`);
+        steps.push(`y = ${y}`);
+
+        // Langkah 5: Substitusi y dan z untuk mendapatkan x
+        const x = (b1 - a12 * y - a13 * z) / a11;
+
+        steps.push(`\nLangkah 5: Substitusi y dan z untuk mendapatkan x`);
+        steps.push(`x = ${x}`);
+
+        // Menampilkan hasil
+        document.getElementById("error").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        document.getElementById("solution").innerHTML = `
+                <p>x = ${x.toFixed(2)}</p>
+                <p>y = ${y.toFixed(2)}</p>
+                <p>z = ${z.toFixed(2)}</p>
+            `;
+        document.getElementById("steps").innerHTML = steps.join("<br>");
       }
     </script>
   </body>

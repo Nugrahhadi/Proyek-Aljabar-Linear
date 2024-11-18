@@ -3,62 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator Sistem Persamaan Linear</title>
+    <title>SPL Metode Crammer Gauss</title>
     <style>
+      :root{
+        --cyan: #99dbe3;
+        --birumuda: #3fa7b4;
+        --birutua: #09506e;
+        --hijautua: #004d40;
+      }
+
       body {
         font-family: Arial, sans-serif;
         max-width: 800px;
         margin: 20px auto;
         padding: 20px;
-        background-color: #cb5897;
+        background: linear-gradient(to bottom, var(--birumuda), var(--birutua)); 
       }
+
       .container {
-        background-color: #bc528c;
+        background: linear-gradient(var(--birumuda), var(--cyan)); 
         padding: 20px;
         border-radius: 4px;
         box-shadow: 0 0 10px rgba(51, 21, 21, 0.1);
       }
-      h1,
-      h2,
-      h3 {
-        color: rgb(69, 37, 37);
+
+      h1,h2,h3 {
+        color: white;
         text-align: center;
       }
+
+
       .method-select {
         margin: 20px 0;
         text-align: center;
       }
+
+
       select {
         padding: 8px;
         border-radius: 4px;
-        border: 1px solid #e5d8d8;
+        border: 1px solid white;
         font-size: 16px;
       }
+
+
       .input-section {
         margin-bottom: 20px;
       }
+
+
       .matrix-input {
         display: flex;
         flex-direction: column;
         gap: 10px;
         margin-top: 10px;
       }
+
+
       .matrix-row {
         display: flex;
         gap: 5px;
         justify-content: center;
         align-items: center;
       }
+
+
       input[type="number"] {
         width: 60px;
         padding: 5px;
         border: 1px solid #ddd;
         border-radius: px;
-        background-color: #c5bde5;
+        background-color: white;
       }
+
       button {
-        background-color: #b2a8dc;
-        color: rgb(69, 37, 37);
+        background-color: rgb(74, 201, 74);
+        color: white;
         padding: 10px 20px;
         border: none;
         border-radius: 2px;
@@ -67,27 +87,33 @@
         margin: 10px 0;
         width: 100%;
       }
+
+
       button:hover {
         background-color: #b1adc2;
       }
-      .result,
-      .steps {
+
+
+      .result,.steps {
         margin-top: 20px;
         padding: 15px;
         border: 1px solid #ddd;
         border-radius: 4px;
         background-color: #f9f9f9;
       }
+
       .step {
         margin-bottom: 10px;
         padding: 10px;
         background-color: #fff;
         border-left: 3px solid #4caf50;
       }
-      #cramerSection,
-      #gaussSection {
+
+
+      #cramerSection, #gaussSection {
         display: none;
       }
+
       .active {
         display: block !important;
       }
@@ -98,7 +124,7 @@
         align-items: center;
         width: 900px;
         max-width: 100%;
-        margin: 20px auto; /* Ubah margin-top menjadi margin dan tambahkan auto */
+        margin: 20px auto; 
         text-align: center;
       }
 

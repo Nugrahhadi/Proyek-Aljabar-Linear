@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalkulator Matriks</title>
     <style>
+      :root {
+        --cyan: #99dbe3;
+        --birumuda: #3fa7b4;
+        --birutua: #09506e;
+        --hijautua: #004d40;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
@@ -13,7 +20,7 @@
       }
 
       body {
-        background: #f0f2f5;
+        background: linear-gradient(var(--birumuda), var(--birutua));
         padding: 20px;
         min-height: 100vh;
       }
@@ -21,7 +28,12 @@
       .container {
         max-width: 1000px;
         margin: 0 auto;
-        background: white;
+        background: linear-gradient(
+          var(--birumuda),
+          var(--cyan),
+          var(white),
+          var(--birumuda)
+        );
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -29,7 +41,7 @@
 
       h1 {
         text-align: center;
-        color: #1a73e8;
+        color: white;
         margin-bottom: 20px;
       }
 
@@ -114,8 +126,9 @@
       }
 
       .matrix-title {
+        text-align: center;
         margin-bottom: 15px;
-        color: #1a73e8;
+        color: var(--birutua);
       }
 
       .matrix {
@@ -154,7 +167,7 @@
 
       .result-title {
         margin-bottom: 15px;
-        color: #1a73e8;
+        color: var(--birutua);
       }
 
       .result-matrix {
@@ -184,6 +197,38 @@
         color: #d32f2f;
         text-align: center;
         margin-top: 10px;
+      }
+
+      @media (max-width: 768px) {
+        .matrix-size-controls {
+          grid-template-columns: 1fr;
+        }
+
+        .matrices-container {
+          grid-template-columns: 1fr;
+        }
+
+        .matrix input {
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
+        }
+
+        .result-cell {
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
+        }
+
+        .operations {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .button {
+          padding: 8px 15px;
+          font-size: 14px;
+        }
       }
     </style>
   </head>

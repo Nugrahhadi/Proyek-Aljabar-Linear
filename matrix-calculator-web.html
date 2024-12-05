@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalkulator Matriks</title>
     <style>
-      :root{
+      :root {
         --cyan: #99dbe3;
         --birumuda: #3fa7b4;
         --birutua: #09506e;
@@ -28,7 +28,12 @@
       .container {
         max-width: 1000px;
         margin: 0 auto;
-        background: linear-gradient(var(--birumuda), var(--cyan), var(white), var(--birumuda));
+        background: linear-gradient(
+          var(--birumuda),
+          var(--cyan),
+          var(white),
+          var(--birumuda)
+        );
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -39,7 +44,6 @@
         color: white;
         margin-bottom: 20px;
       }
-
 
       .matrix-size-controls {
         display: grid;
@@ -194,6 +198,38 @@
         text-align: center;
         margin-top: 10px;
       }
+
+      @media (max-width: 768px) {
+        .matrix-size-controls {
+          grid-template-columns: 1fr;
+        }
+
+        .matrices-container {
+          grid-template-columns: 1fr;
+        }
+
+        .matrix input {
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
+        }
+
+        .result-cell {
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
+        }
+
+        .operations {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .button {
+          padding: 8px 15px;
+          font-size: 14px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -253,7 +289,7 @@
 
       <div class="btn-container">
         <button class="btn" style="margin-top: 10px">
-          <a href="home.html" class="btn home">Kembali ke Menu</a>
+          <a href="index.html" class="btn home">Kembali ke Menu</a>
         </button>
       </div>
     </div>
